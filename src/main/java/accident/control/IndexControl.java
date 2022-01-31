@@ -1,10 +1,9 @@
 package accident.control;
 
+import accident.service.AccidentService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
-import java.util.List;
 
 /**
  * @author ArvikV
@@ -13,10 +12,15 @@ import java.util.List;
  */
 @Controller
 public class IndexControl {
+    private final AccidentService accidentService;
+
+    public IndexControl(AccidentService accidentService) {
+        this.accidentService = accidentService;
+    }
+
     @GetMapping("/")
     public String index(Model model) {
-        List<String> stringList = List.of("one", "two", "three", "four", "five");
-        model.addAttribute("NameOfRefToJSP", stringList);
+        model.addAttribute("NameOfRefToJSP", accidentService.getAccident());
         return "index";
     }
 }

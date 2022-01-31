@@ -28,6 +28,31 @@
     <title>Car-Accident</title>
 </head>
 <body>
+<div class="col-md-8 mx-auto">
+    <h2>Accident table</h2>
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th scope="col">id</th>
+        <th scope="col">name</th>
+        <th scope="col">text</th>
+        <th scope="col">address</th>
+    </tr>
+    </thead>
+    <tbody>
+<c:forEach var="name" items="${NameOfRefToJSP}">
+    <tr>
+        <th scope="row">${name.id}</th>
+        <td>${name.name}</td>
+        <td>${name.text}</td>
+        <td>${name.address}</td>
+    </tr>
+</c:forEach>
+    </tbody>
+</table>
+</div>
+
+<%--
 <div class="constantValuesContainer">
 <ol class="list-group list-group-numbered">
     <li class="list-group-item">NameOfRefToJSP Hello List: ${NameOfRefToJSP}</li>
@@ -35,6 +60,6 @@
         <li class="list-group-item">${name}</li>
     </c:forEach>
 </ol>
-</div>
+</div>--%>
 </body>
 </html>
