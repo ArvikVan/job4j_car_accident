@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: arvik
-  Date: 30.01.2022
-  Time: 19:52
+  Date: 31.01.2022
+  Time: 23:28
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -25,33 +25,37 @@
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <head>
-    <title>Car-Accident</title>
+  <title>Edit Page - Car Accident</title>
 </head>
 <body>
 <div class="col-md-8 mx-auto">
-    <h2>Accident table</h2>
-<table class="table table-bordered">
-    <thead>
-    <tr>
-        <th scope="col">id</th>
-        <th scope="col">name</th>
-        <th scope="col">text</th>
-        <th scope="col">address</th>
-    </tr>
-    </thead>
-    <tbody>
-<c:forEach var="name" items="${NameOfRefToJSP}">
-    <tr>
-        <th scope="row">${name.id}</th>
-        <td>${name.name}</td>
-        <td>${name.text}</td>
-        <td>${name.address}</td>
-        <td><a href="<c:out value='/accident/update?id=${name.id}'/>">Edit accident</a></td>
-    </tr>
-</c:forEach>
-    </tbody>
-</table>
-    <a href="<c:url value='/create'/>">Add another accident</a>
+  <h2>Edit - Accident - table</h2>
+
+  <form  action="<c:url value='/update'/>" method='GET'>
+
+    <table class="table table-bordered">
+      <tr>
+        <td>Enter id:</td>
+        <td><input type='text' name='id'></td>
+      </tr>
+      <tr>
+        <td>Enter name:</td>
+        <td><input type='text' name='name'></td>
+      </tr>
+      <tr>
+        <td>Enter text:</td>
+        <td><input type='text' name='text'></td>
+      </tr>
+      <tr>
+        <td>Enter address:</td>
+        <td><input type='text' name='address'></td>
+      </tr>
+      <tr>
+        <td colspan='2'><input name="submit" type="submit" value="Сохранить" /></td>
+      </tr>
+    </table>
+  </form>
+  <a href="<c:url value='/'/>">Back to main page</a>
 </div>
 </body>
 </html>
