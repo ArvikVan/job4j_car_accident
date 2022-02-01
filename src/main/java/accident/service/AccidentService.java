@@ -1,6 +1,7 @@
 package accident.service;
 
 import accident.model.Accident;
+import accident.model.AccidentType;
 import accident.repository.AccidentMem;
 import org.springframework.stereotype.Service;
 
