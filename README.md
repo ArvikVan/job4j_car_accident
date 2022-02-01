@@ -23,5 +23,5 @@
 - PostgreSQL
 - Travis CI
 - Apache Tomcat
-- Java Script
+- Spring MVC
 
