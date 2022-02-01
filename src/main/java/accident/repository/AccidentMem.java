@@ -5,18 +5,20 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @author ArvikV
- * @version 1.
+ * @version 1.2
  * @since 31.01.2022
  * AccidentMem - хранилище инцидентов.
  * добавлен метод update, который должен обновлять мапу по ключу
+ * 1.2 добавлен атомикИнтежер как счетчик
  */
 @Repository
 public class AccidentMem {
     private final HashMap<Integer, Accident> accidents = new HashMap<>();
-    private  int id = 4;
+    private final AtomicInteger countId = new AtomicInteger(3);
 
     public AccidentMem() {
         accidents.put(1, new Accident(1, "name1", "text1", "address1"));
@@ -36,9 +38,9 @@ public class AccidentMem {
      */
     public void create(Accident accident) {
         if (accident.getId() == 0) {
-            accident.setId(id++);
+            accident.setId(countId.incrementAndGet());
         }
-        accidents.put(id, accident);
+        accidents.put(countId.addAndGet(0), accident);
     }
 
     /**
