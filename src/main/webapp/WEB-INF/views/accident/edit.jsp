@@ -31,24 +31,19 @@
 <div class="col-md-8 mx-auto">
   <h2>Edit - Accident - table</h2>
 
-  <form  action="<c:url value='/update'/>" method='GET'>
+  <form  action="<c:url value='/save?id=${accident.id}'/>" method='POST'>
 
     <table class="table table-bordered">
-      <tr>
-        <td>Enter id:</td>
-        <td><input type='text' name='id'></td>
-      </tr>
-      <tr>
         <td>Enter name:</td>
-        <td><input type='text' name='name'></td>
+        <td><input type='text' name='name' value="${accident.name}"></td>
       </tr>
       <tr>
         <td>Enter text:</td>
-        <td><input type='text' name='text'></td>
+        <td><input type='text' name='text' value="${accident.text}"></td>
       </tr>
       <tr>
         <td>Enter address:</td>
-        <td><input type='text' name='address'></td>
+        <td><input type='text' name='address' value="${accident.address}"></td>
       </tr>
       <tr>
         <td colspan='2'><input name="submit" type="submit" value="Сохранить" /></td>

@@ -13,7 +13,8 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @since 31.01.2022
  * AccidentMem - хранилище инцидентов.
  * добавлен метод update, который должен обновлять мапу по ключу
- * 1.2 добавлен атомикИнтежер как счетчик
+ * 1.2 добавлен атомикИнтежер как счетчик, модифицирован метод create(Accident accident)
+ * добавлен метод findById для пользования в AccidentControl
  */
 @Repository
 public class AccidentMem {
@@ -34,10 +35,10 @@ public class AccidentMem {
      * метод создания новой аварии
      * @param accident сама авария со всеми параметрами
      *                 вставляем в мапу аварию с ид
-     *                 при этом если ид 0 то увеличиваем его
+     *                если ключа нет в мапе то увеличиваем счетчик
      */
     public void create(Accident accident) {
-        if (accident.getId() == 0) {
+        if (!accidents.containsKey(accident.getId())) {
             accident.setId(countId.incrementAndGet());
         }
         accidents.put(countId.addAndGet(0), accident);
@@ -50,5 +51,9 @@ public class AccidentMem {
      */
     public void update(int id, Accident accident) {
         accidents.replace(id, accident);
+    }
+
+    public Accident findById(int id) {
+        return accidents.get(id);
     }
 }

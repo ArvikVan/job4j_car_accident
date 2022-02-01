@@ -40,13 +40,13 @@
     </tr>
     </thead>
     <tbody>
-<c:forEach var="name" items="${NameOfRefToJSP}">
+<c:forEach var="accident" items="${NameOfRefToJSP}">
     <tr>
-        <th scope="row">${name.id}</th>
-        <td>${name.name}</td>
-        <td>${name.text}</td>
-        <td>${name.address}</td>
-        <td><a href="<c:out value='/accident/update?id=${name.id}'/>">Edit accident</a></td>
+        <th scope="row">${accident.id}</th>
+        <td><c:out value="${accident.name}"/></td>
+        <td><c:out value="${accident.text}"/></td>
+        <td><c:out value="${accident.address}"/></td>
+        <td><a href="<c:out value='/accident/update?id=${accident.id}'/>">Edit accident</a></td>
     </tr>
 </c:forEach>
     </tbody>
