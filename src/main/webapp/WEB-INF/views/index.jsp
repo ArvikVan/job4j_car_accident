@@ -38,6 +38,7 @@
         <th scope="col">text</th>
         <th scope="col">address</th>
         <th scope="col">typeOfAccident</th>
+        <th scope="col">Rules</th>
     </tr>
     </thead>
     <tbody>
@@ -48,6 +49,7 @@
         <td><c:out value="${accident.text}"/></td>
         <td><c:out value="${accident.address}"/></td>
         <td><c:out value="${accident.type.name}"/></td>
+        <td><c:forEach var="rule" items="${accident.rules}"><c:out value="${rule.name}"/></c:forEach></td>
         <td><a href="<c:out value='/accident/update?id=${accident.id}'/>">Edit accident</a></td>
     </tr>
 </c:forEach>

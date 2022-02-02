@@ -3,6 +3,7 @@ package accident.model;
 import org.springframework.stereotype.Component;
 
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * @author ArvikV
@@ -18,8 +19,18 @@ public class Accident {
     private String text;
     private String address;
     private AccidentType type;
+    private Set<Rule> rules;
 
     public Accident() {
+    }
+
+    public Accident(int id, String name, String text, String address, AccidentType type, Set<Rule> rules) {
+        this.id = id;
+        this.name = name;
+        this.text = text;
+        this.address = address;
+        this.type = type;
+        this.rules = rules;
     }
 
     public Accident(int id, String name, String text, String address, AccidentType type) {
@@ -70,6 +81,14 @@ public class Accident {
         this.type = type;
     }
 
+    public Set<Rule> getRules() {
+        return rules;
+    }
+
+    public void setRules(Set<Rule> rules) {
+        this.rules = rules;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -95,6 +114,7 @@ public class Accident {
                 + ", text='" + text + '\''
                 + ", address='" + address + '\''
                 + ", type='" + type + '\''
+                + ", rules='" + rules + '\''
                 + '}';
     }
 }

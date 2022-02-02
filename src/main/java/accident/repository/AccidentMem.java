@@ -2,15 +2,15 @@ package accident.repository;
 
 import accident.model.Accident;
 import accident.model.AccidentType;
+import accident.model.Rule;
 import org.springframework.stereotype.Repository;
 
-import java.util.Collection;
-import java.util.HashMap;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @author ArvikV
- * @version 1.3
+ * @version 1.4
  * @since 31.01.2022
  * AccidentMem - хранилище инцидентов.
  * добавлен метод update, который должен обновлять мапу по ключу
@@ -18,6 +18,8 @@ import java.util.concurrent.atomic.AtomicInteger;
  * добавлен метод findById для пользования в AccidentControl
  * 1.3 Во избежание NPE добавил к редактированию и редакт.типа аварии
  * добавлены методы findTypeId(int id) getAccidentTypes() и мапа accidentTypes
+ * 1.4 Добавлены мапа для статей
+ *
  */
 @Repository
 public class AccidentMem {
@@ -25,27 +27,35 @@ public class AccidentMem {
 
     private final HashMap<Integer, AccidentType> accidentTypes = new HashMap<>();
 
+    private final HashMap<Integer, Rule> accidentRules = new HashMap<>();
+
     private final AtomicInteger countId = new AtomicInteger(3);
 
     public AccidentMem() {
         accidentTypes.put(1, AccidentType.of(1, "Two cars"));
         accidentTypes.put(2, AccidentType.of(2, "Human and vehicle"));
         accidentTypes.put(3, AccidentType.of(3, "Vehicle and bycicle"));
+        accidentRules.put(1, Rule.of(1, "Статья 1 п.3"));
+        accidentRules.put(2, Rule.of(2, "Статья 12 п.2"));
+        accidentRules.put(3, Rule.of(3, "Статья 23 п.1"));
         accidents.put(1, new Accident(
                 1,
                 "ДТП",
                 "Лобовое столкновение, тс восстановлению не подлежат",
-                "Комсомольская/Пролетарская", accidentTypes.get(1)));
+                "Комсомольская/Пролетарская", accidentTypes.get(1),
+                Set.of(Rule.of(1, "Статья 1 п.3"))));
         accidents.put(2, new Accident(
                 2,
                 "Автомобиль разбился",
                 "Водитель ТС не справился с управлением и врезался в столб",
-                "Кирова/Партизанская", accidentTypes.get(2)));
+                "Кирова/Партизанская", accidentTypes.get(2),
+                Set.of(Rule.of(2, "Статья 12 п.2"))));
         accidents.put(3, new Accident(
                 3,
                 "Порча имущества",
                 "Гр.Залупин бросил кирпич в ветровое стекло и разбил его",
-                "ПромЗона-246", accidentTypes.get(3)));
+                "ПромЗона-246", accidentTypes.get(3),
+                Set.of(Rule.of(2, "Статья 23 п.1"))));
     }
 
     public Collection<Accident> getAccidents() {
@@ -54,6 +64,10 @@ public class AccidentMem {
 
     public Collection<AccidentType> getAccidentTypes() {
         return accidentTypes.values();
+    }
+
+    public Collection<Rule> getAccidentRules() {
+        return accidentRules.values();
     }
 
     /**
@@ -66,16 +80,7 @@ public class AccidentMem {
         if (!accidents.containsKey(accident.getId())) {
             accident.setId(countId.incrementAndGet());
         }
-        accidents.put(countId.addAndGet(0), accident);
-    }
-
-    /**
-     * метод обновления
-     * @param id ид по которому надо обновить
-     * @param accident то что надо обновить
-     */
-    public void update(int id, Accident accident) {
-        accidents.replace(id, accident);
+        accidents.put(accident.getId(), accident);
     }
 
     public Accident findById(int id) {
@@ -84,5 +89,19 @@ public class AccidentMem {
 
     public AccidentType findTypeId(int id) {
         return accidentTypes.get(id);
+    }
+
+    /**
+     * метод получения статей
+     * @param ids на входе массив статей которые пойдут из запроса
+     * @return на выходе сет статей
+     * добавляем в сет все что в мапе
+     */
+    public Set<Rule> getRules(String[] ids) {
+        Set<Rule> rules = new HashSet<>();
+        for (String id : ids) {
+            rules.add(accidentRules.get(Integer.parseInt(id)));
+        }
+        return rules;
     }
 }
