@@ -12,9 +12,14 @@ import java.util.List;
 
 /**
  * @author ArvikV
- * @version 1.3
+ * @version 1.4
  * @since 31.01.2022
  * добавлен метод update
+ * 1.4 Перенесите на уровень repository и храните так в Map
+ * в методе create(Model model) убрал все лишнее, оставил обращение к атрибутам модели
+ * Так же убрал в методе update(@RequestParam("id") int id, Model model) одинаковые строки, хотя
+ * раньше без них не работало обновление/изменение аварий, на каждую строку приходился один параметр
+ * который надо было менять
  */
 @Controller
 public class AccidentControl {
@@ -32,10 +37,7 @@ public class AccidentControl {
     @GetMapping("/create")
     public String create(Model model) {
         List<AccidentType> types = new ArrayList<>();
-        types.add(AccidentType.of(1, "Two cars"));
-        types.add(AccidentType.of(2, "Human and vehicle"));
-        types.add(AccidentType.of(3, "Vehicle and bycicle"));
-        model.addAttribute("types", types);
+        model.addAttribute("types", accidents.getAccidentTypes());
         return "accident/create";
     }
 
@@ -62,8 +64,6 @@ public class AccidentControl {
      */
     @GetMapping("/update")
     public String update(@RequestParam("id") int id, Model model) {
-        model.addAttribute("accident", accidents.findById(id));
-        model.addAttribute("accident", accidents.findById(id));
         model.addAttribute("accident", accidents.findById(id));
         model.addAttribute("types", accidents.getAccidentTypes());
         return "accident/edit";
