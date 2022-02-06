@@ -1,7 +1,6 @@
 package accident.control;
 
 import accident.repository.AccidentJdbcTemplate;
-import accident.service.AccidentService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

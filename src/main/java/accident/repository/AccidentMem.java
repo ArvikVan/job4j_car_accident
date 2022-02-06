@@ -21,7 +21,6 @@ import java.util.concurrent.atomic.AtomicInteger;
  * 1.4 Добавлены мапа для статей
  *
  */
-//@Repository
 public class AccidentMem {
     private final HashMap<Integer, Accident> accidents = new HashMap<>();
 
