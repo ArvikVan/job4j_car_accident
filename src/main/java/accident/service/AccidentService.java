@@ -2,10 +2,12 @@ package accident.service;
 
 import accident.model.Accident;
 import accident.model.AccidentType;
-import accident.repository.AccidentMem;
+import accident.model.Rule;
+import accident.repository.AccidentJdbcTemplate;
+
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
+import java.util.*;
 
 /**
  * @author ArvikV
@@ -15,13 +17,39 @@ import java.util.Collection;
  */
 @Service
 public class AccidentService {
-    private final AccidentMem accidentMem;
 
-    public AccidentService(AccidentMem accidentMem) {
-        this.accidentMem = accidentMem;
+    private final AccidentJdbcTemplate accidentJdbcTemplate;
+
+    public AccidentService(AccidentJdbcTemplate accidentJdbcTemplate) {
+        this.accidentJdbcTemplate = accidentJdbcTemplate;
     }
 
     public Collection<Accident> getAccident() {
-        return accidentMem.getAccidents();
+        return accidentJdbcTemplate.getAccidents();
     }
+
+    public Collection<AccidentType> getAccidentTypes() {
+        return accidentJdbcTemplate.getAccidentTypes();
+    }
+
+    public Collection<Rule> getAccidentRules() {
+        return accidentJdbcTemplate.getAccidentRules();
+    }
+
+    public Accident findById(int id) {
+        return accidentJdbcTemplate.findById(id);
+    }
+
+    public AccidentType findTypeId(int id) {
+        return accidentJdbcTemplate.findTypeId(id);
+    }
+
+    public Set<Rule> getRules(String[] ids) {
+        return accidentJdbcTemplate.getRules(ids);
+    }
+
+    public void create(Accident accident, String[] id) {
+        accidentJdbcTemplate.save(accident, id);
+    }
+
 }

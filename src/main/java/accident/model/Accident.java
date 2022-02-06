@@ -1,7 +1,9 @@
 package accident.model;
 
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -41,16 +43,16 @@ public class Accident {
         this.type = type;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public void setName(String name) {

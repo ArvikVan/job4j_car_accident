@@ -2,7 +2,9 @@ package accident.control;
 
 import accident.model.Accident;
 import accident.model.AccidentType;
-import accident.repository.AccidentMem;
+import accident.model.Rule;
+import accident.repository.AccidentJdbcTemplate;
+import accident.service.AccidentService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author ArvikV
@@ -24,9 +27,9 @@ import java.util.List;
  */
 @Controller
 public class AccidentControl {
-    private final AccidentMem accidents;
+    private final AccidentService accidents;
 
-    public AccidentControl(AccidentMem accidents) {
+    public AccidentControl(AccidentService accidents) {
         this.accidents = accidents;
     }
 
@@ -57,7 +60,7 @@ public class AccidentControl {
         accident.setType(accidents.findTypeId(accident.getType().getId()));
         String[] ids = req.getParameterValues("rIds");
         accident.setRules(accidents.getRules(ids));
-        accidents.create(accident);
+        accidents.create(accident, ids);
         return "redirect:/";
     }
 
