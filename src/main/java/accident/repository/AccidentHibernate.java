@@ -11,14 +11,12 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Stream;
-
-
 /**
  * @author ArvikV
  * @version 1.0
  * @since 07.02.2022
  */
-@Repository
+/*@Repository*/
 public class AccidentHibernate {
     private final SessionFactory sf;
 

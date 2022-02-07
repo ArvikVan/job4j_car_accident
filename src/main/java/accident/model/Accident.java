@@ -26,10 +26,10 @@ public class Accident {
     private String name;
     private String text;
     private String address;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "type_id")
     private AccidentType type;
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     private Set<Rule> rule;
 
     public Accident() {

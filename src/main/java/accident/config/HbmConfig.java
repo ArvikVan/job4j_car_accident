@@ -19,9 +19,9 @@ import java.util.Properties;
  * @version 1.0
  * @since 07.02.2022
  */
-@Configuration
+/*@Configuration
 @PropertySource("classpath:app.properties")
-@EnableTransactionManagement
+@EnableTransactionManagement*/
 public class HbmConfig {
     @Bean
     public DataSource ds(@Value("${jdbc.driver}") String driver,

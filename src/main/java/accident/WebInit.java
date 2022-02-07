@@ -1,5 +1,6 @@
 package accident;
 
+import accident.config.DataConfig;
 import accident.config.HbmConfig;
 import accident.config.JdbcConfig;
 import accident.config.WebConfig;
@@ -24,7 +25,7 @@ public class WebInit implements WebApplicationInitializer {
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
         AnnotationConfigWebApplicationContext ac = new AnnotationConfigWebApplicationContext();
-        ac.register(WebConfig.class, HbmConfig.class);
+        ac.register(WebConfig.class, DataConfig.class);
         ac.refresh();
         CharacterEncodingFilter filter = new CharacterEncodingFilter();
         filter.setEncoding("UTF-8");
