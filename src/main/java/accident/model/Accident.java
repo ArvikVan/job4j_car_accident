@@ -2,7 +2,9 @@ package accident.model;
 
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -14,33 +16,32 @@ import java.util.Set;
  * 1. Модель данных - правонарушения.
  * di с помощью конструктора
  */
-@Component
+@Entity
+@Table(name = "accident")
 public class Accident {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(name = "name_accident")
     private String name;
     private String text;
     private String address;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "type_id")
     private AccidentType type;
-    private Set<Rule> rules;
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<Rule> rule;
 
     public Accident() {
     }
 
-    public Accident(int id, String name, String text, String address, AccidentType type, Set<Rule> rules) {
+    public Accident(int id, String name, String text, String address, AccidentType type, Set<Rule> rule) {
         this.id = id;
         this.name = name;
         this.text = text;
         this.address = address;
         this.type = type;
-        this.rules = rules;
-    }
-
-    public Accident(int id, String name, String text, String address, AccidentType type) {
-        this.id = id;
-        this.name = name;
-        this.text = text;
-        this.address = address;
-        this.type = type;
+        this.rule = rule;
     }
 
     public String getName() {
@@ -84,11 +85,18 @@ public class Accident {
     }
 
     public Set<Rule> getRules() {
-        return rules;
+        return rule;
     }
 
-    public void setRules(Set<Rule> rules) {
-        this.rules = rules;
+    public void setRules(Set<Rule> rule) {
+        this.rule = rule;
+    }
+
+    public void addRule(Rule rules) {
+        if (rule == null) {
+            rule = new HashSet<>();
+        }
+        rule.add(rules);
     }
 
     @Override
@@ -115,8 +123,8 @@ public class Accident {
                 + ", name='" + name + '\''
                 + ", text='" + text + '\''
                 + ", address='" + address + '\''
-                + ", type='" + type + '\''
-                + ", rules='" + rules + '\''
+                + ", type=" + type
+                + ", rule=" + rule
                 + '}';
     }
 }

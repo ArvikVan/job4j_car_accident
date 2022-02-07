@@ -3,6 +3,7 @@ package accident.service;
 import accident.model.Accident;
 import accident.model.AccidentType;
 import accident.model.Rule;
+import accident.repository.AccidentHibernate;
 import accident.repository.AccidentJdbcTemplate;
 
 import org.springframework.stereotype.Service;
@@ -18,9 +19,9 @@ import java.util.*;
 @Service
 public class AccidentService {
 
-    private final AccidentJdbcTemplate accidentJdbcTemplate;
+    private final AccidentHibernate accidentJdbcTemplate;
 
-    public AccidentService(AccidentJdbcTemplate accidentJdbcTemplate) {
+    public AccidentService(AccidentHibernate accidentJdbcTemplate) {
         this.accidentJdbcTemplate = accidentJdbcTemplate;
     }
 

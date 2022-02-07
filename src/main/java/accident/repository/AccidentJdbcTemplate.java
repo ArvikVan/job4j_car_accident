@@ -18,7 +18,7 @@ import java.util.stream.Stream;
  * @version 1.0
  * @since 04.02.2022
  */
-@Repository
+/*@Repository*/
 public class AccidentJdbcTemplate {
     private final JdbcTemplate jdbc;
 

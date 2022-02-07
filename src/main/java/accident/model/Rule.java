@@ -2,6 +2,7 @@ package accident.model;
 
 import org.springframework.stereotype.Component;
 
+import javax.persistence.*;
 import java.util.Objects;
 
 /**
@@ -9,8 +10,11 @@ import java.util.Objects;
  * @version 1.0
  * @since 02.02.2022
  */
-@Component
+@Entity
+@Table(name = "rule")
 public class Rule {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
 
