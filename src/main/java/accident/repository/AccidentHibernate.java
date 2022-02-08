@@ -39,7 +39,7 @@ public class AccidentHibernate {
     }
 
     public Collection<Accident> getAccidents() {
-       return this.tx(session -> session.createQuery("from Accident order by id").list());
+       return this.tx(session -> session.createQuery("from Accident a join fetch a.rule").list());
     }
 
     public Collection<AccidentType> getAccidentTypes() {
@@ -57,7 +57,7 @@ public class AccidentHibernate {
     public Accident findById(int id) {
         try (Session session = sf.openSession()) {
             return session
-                    .createQuery("from Accident where id = :id", Accident.class)
+                    .createQuery("from Accident a join fetch a.rule where a.id = :id", Accident.class)
                     .setParameter("id", id).uniqueResult();
         }
     }
