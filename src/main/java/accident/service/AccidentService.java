@@ -4,8 +4,8 @@ import accident.model.Accident;
 import accident.model.AccidentType;
 import accident.model.Rule;
 import accident.repository.*;
-
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 import java.util.stream.Stream;
@@ -48,7 +48,7 @@ public class AccidentService {
     }
 
     public Accident findById(int id) {
-        return accidentRepository.findById(id).get();
+        return accidentRepository.findById(id);
     }
 
     public AccidentType findTypeId(int id) {

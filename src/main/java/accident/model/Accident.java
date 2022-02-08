@@ -24,12 +24,14 @@ public class Accident {
     private int id;
     @Column(name = "name_accident")
     private String name;
+    @Column(name = "text")
     private String text;
+    @Column(name = "address")
     private String address;
-    @ManyToOne(cascade = CascadeType.DETACH)
+    @ManyToOne
     @JoinColumn(name = "type_id")
     private AccidentType type;
-    @ManyToMany(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
     private Set<Rule> rule;
 
     public Accident() {
