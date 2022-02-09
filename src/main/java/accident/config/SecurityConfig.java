@@ -7,8 +7,11 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import javax.sql.DataSource;
 
 /**
  * @author ArvikV
@@ -19,15 +22,28 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
-    private     PasswordEncoder passwordEncoder;
+    private DataSource ds;
 
-    @Override
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+   /*
+   @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
                 .passwordEncoder(passwordEncoder)
                 .withUser("user").password(passwordEncoder.encode("123456")).roles("USER")
                 .and()
                 .withUser("admin").password(passwordEncoder.encode("123456")).roles("USER", "ADMIN");
+    }
+    */
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.jdbcAuthentication().dataSource(ds)
+                .withUser(User.withUsername("user")
+                        .password(passwordEncoder().encode("123456"))
+                        .roles("USER"));
     }
 
     @Bean

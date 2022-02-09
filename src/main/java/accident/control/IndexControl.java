@@ -4,6 +4,7 @@ import accident.model.Accident;
 import accident.repository.AccidentHibernate;
 import accident.repository.AccidentJdbcTemplate;
 import accident.repository.AccidentRepository;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +28,7 @@ public class IndexControl {
     @GetMapping("/")
     public String index(Model model) {
         List<Accident> res = new ArrayList<>();
+        model.addAttribute("user", SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         accidentService.findAll().forEach(res::add);
         model.addAttribute("NameOfRefToJSP", res);
         return "index";

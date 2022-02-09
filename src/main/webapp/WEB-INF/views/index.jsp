@@ -30,6 +30,7 @@
 <body>
 <div class="col-md-8 mx-auto">
     <h2>Accident table</h2>
+    <div>Login as : ${user.username}</div>
 <table class="table table-bordered">
     <thead>
     <tr>
